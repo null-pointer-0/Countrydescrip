@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmadrosid.svgloader.SvgLoader
 import com.example.countries.Example
 import com.example.countries.R
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.countrylayout.view.*
 
 class CountryAdapter(val context:Context, var countrylist:List<Example>,
@@ -33,9 +36,9 @@ class CountryAdapter(val context:Context, var countrylist:List<Example>,
     override fun onBindViewHolder(holder: viewholder, position: Int){
         var current = countrylist[position]
         holder.conname.text = current.name
-        holder.concapital.text = current.capital
+        holder.concapital.text = "Capital:${current.capital}"
         holder.conregion.text = current.region
-        holder.conpop.text = countrylist[position].population.toString()
+        holder.conpop.text = "Population:${countrylist[position].population.toString()}"
         holder.consregion.text = current.subregion
         SvgLoader.pluck()
             .with(mActivity)
@@ -47,6 +50,7 @@ class CountryAdapter(val context:Context, var countrylist:List<Example>,
         val madp2 = MemberAdp2(current.languages)
         holder.langs.layoutManager = LinearLayoutManager(mActivity)
         holder.langs.adapter = madp2
+        mActivity.progressBar.isVisible=false
     }
 
     override fun getItemCount(): Int {
